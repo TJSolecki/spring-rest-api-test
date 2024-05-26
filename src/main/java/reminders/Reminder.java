@@ -1,4 +1,4 @@
-package com.thomas.model;
+package reminders;
 
 import java.time.LocalDateTime;
 

@@ -1,6 +1,5 @@
-package com.thomas;
+package reminders;
 
-import com.thomas.model.Reminder;
 import java.time.LocalDateTime;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
