@@ -5,9 +5,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.server.ResponseStatusException;
 
 @Repository
 public class ReminderRepository {
@@ -29,9 +27,7 @@ public class ReminderRepository {
     void update_reminder(Reminder updated_reminder, int index) {
         Optional<Reminder> reminder = find_by_index(index);
         if (reminder.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
-                                              "Reminder with index " + index +
-                                                  " does not exist");
+            throw new ReminderNotFoundException(index);
         }
         reminders.set(index, updated_reminder);
     }
@@ -39,9 +35,7 @@ public class ReminderRepository {
     void delete_reminder(int index) {
         Optional<Reminder> reminder = find_by_index(index);
         if (reminder.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
-                                              "Reminder with index " + index +
-                                                  " does not exist");
+            throw new ReminderNotFoundException(index);
         }
         reminders.remove(index);
     }

@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 @RequestMapping("/reminders")
@@ -33,7 +32,7 @@ public class ReminderController {
     Reminder get_reminder_by_index(@PathVariable int i) {
         Optional<Reminder> reminder = reminder_repository.find_by_index(i);
         if (reminder.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+            throw new ReminderNotFoundException(i);
         }
         return reminder.get();
     }
