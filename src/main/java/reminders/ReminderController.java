@@ -1,5 +1,6 @@
 package reminders;
 
+import jakarta.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.http.HttpStatus;
@@ -39,13 +40,13 @@ public class ReminderController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/")
-    void create(@ModelAttribute Reminder reminder) {
+    void create(@Valid @ModelAttribute Reminder reminder) {
         reminder_repository.create_reminder(reminder);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PutMapping("/{i}")
-    void update(@ModelAttribute Reminder updated_reminder,
+    void update(@Valid @ModelAttribute Reminder updated_reminder,
                 @PathVariable int i) {
         reminder_repository.update_reminder(updated_reminder, i);
     }
