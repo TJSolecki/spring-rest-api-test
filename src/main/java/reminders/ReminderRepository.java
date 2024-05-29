@@ -22,7 +22,7 @@ public class ReminderRepository {
         }
     }
 
-    void add_reminder(Reminder reminder) { reminders.add(reminder); }
+    void create_reminder(Reminder reminder) { reminders.add(reminder); }
 
     @PostConstruct
     private void init() {
