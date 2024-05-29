@@ -3,6 +3,7 @@ package reminders;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -48,5 +49,11 @@ public class ReminderController {
     void update(@ModelAttribute Reminder updated_reminder,
                 @PathVariable int i) {
         reminder_repository.update_reminder(updated_reminder, i);
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping("/{i}")
+    void delete(@PathVariable int i) {
+        reminder_repository.delete_reminder(i);
     }
 }

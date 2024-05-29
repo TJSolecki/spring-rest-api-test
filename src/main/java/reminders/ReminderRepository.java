@@ -36,6 +36,16 @@ public class ReminderRepository {
         reminders.set(index, updated_reminder);
     }
 
+    void delete_reminder(int index) {
+        Optional<Reminder> reminder = find_by_index(index);
+        if (reminder.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+                                              "Reminder with index " + index +
+                                                  " does not exist");
+        }
+        reminders.remove(index);
+    }
+
     @PostConstruct
     private void init() {
         reminders.add(new Reminder(LocalDateTime.now(),
