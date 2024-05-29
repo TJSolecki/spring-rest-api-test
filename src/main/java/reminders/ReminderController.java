@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -38,7 +39,14 @@ public class ReminderController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/")
-    void create_reminder(@ModelAttribute Reminder reminder) {
+    void create(@ModelAttribute Reminder reminder) {
         reminder_repository.create_reminder(reminder);
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PutMapping("/{i}")
+    void update(@ModelAttribute Reminder updated_reminder,
+                @PathVariable int i) {
+        reminder_repository.update_reminder(updated_reminder, i);
     }
 }
