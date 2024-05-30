@@ -8,6 +8,6 @@ public class ReminderNotFoundException extends RuntimeException {
     public ReminderNotFoundException() { super("Reminder not found"); }
 
     public ReminderNotFoundException(int index) {
-        super(String.format("Reminder with index %d not found", index));
+        super(String.format("Reminder with id %d not found", index));
     }
 }

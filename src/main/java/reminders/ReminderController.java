@@ -1,8 +1,17 @@
 package reminders;
 
+import jakarta.validation.Valid;
 import java.util.List;
+import java.util.Optional;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -20,31 +29,31 @@ public class ReminderController {
         return reminder_repository.find_all();
     }
 
-    // @GetMapping("/{i}")
-    // Reminder get_reminder_by_index(@PathVariable int i) {
-    // Optional<Reminder> reminder = reminder_repository.find_by_index(i);
-    // if (reminder.isEmpty()) {
-    // throw new ReminderNotFoundException(i);
-    // }
-    // return reminder.get();
-    // }
+    @GetMapping("/{id}")
+    Reminder get_reminder_by_id(@PathVariable int id) {
+        Optional<Reminder> reminder = reminder_repository.find_by_id(id);
+        if (reminder.isEmpty()) {
+            throw new ReminderNotFoundException(id);
+        }
+        return reminder.get();
+    }
 
-    // @ResponseStatus(HttpStatus.CREATED)
-    // @PostMapping("/")
-    // void create(@Valid @ModelAttribute Reminder reminder) {
-    // reminder_repository.create_reminder(reminder);
-    // }
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping("/")
+    void create(@Valid @ModelAttribute Reminder reminder) {
+        reminder_repository.create(reminder);
+    }
 
-    // @ResponseStatus(HttpStatus.NO_CONTENT)
-    // @PutMapping("/{i}")
-    // void update(@Valid @ModelAttribute Reminder updated_reminder,
-    // @PathVariable int i) {
-    // reminder_repository.update_reminder(updated_reminder, i);
-    // }
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PutMapping("/{id}")
+    void update(@Valid @ModelAttribute Reminder updated_reminder,
+                @PathVariable int id) {
+        reminder_repository.update(updated_reminder, id);
+    }
 
-    // @ResponseStatus(HttpStatus.NO_CONTENT)
-    // @DeleteMapping("/{i}")
-    // void delete(@PathVariable int i) {
-    // reminder_repository.delete_reminder(i);
-    // }
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping("/{id}")
+    void delete(@PathVariable int id) {
+        reminder_repository.delete(id);
+    }
 }

@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS reminders (
-    id INT NOT NULL,
+    id INT NOT NULL AUTO_INCREMENT,
     remind_date TIMESTAMP NOT NULL,
     message VARCHAR(256),
     email VARCHAR(256) NOT NULL,
