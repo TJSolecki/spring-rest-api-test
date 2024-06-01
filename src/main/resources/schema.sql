@@ -3,5 +3,6 @@ CREATE TABLE IF NOT EXISTS reminders (
     remind_date TIMESTAMP NOT NULL,
     message VARCHAR(256),
     email VARCHAR(256) NOT NULL,
+    is_sent BOOLEAN NOT NULL DEFAULT FALSE,
     PRIMARY KEY (id)
 );

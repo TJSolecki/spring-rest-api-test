@@ -40,13 +40,13 @@ public class ReminderController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/")
-    void create(@Valid @ModelAttribute Reminder reminder) {
+    void create(@Valid @ModelAttribute ReminderRequest reminder) {
         reminder_repository.create(reminder);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PutMapping("/{id}")
-    void update(@Valid @ModelAttribute Reminder updated_reminder,
+    void update(@Valid @ModelAttribute ReminderRequest updated_reminder,
                 @PathVariable int id) {
         reminder_repository.update(updated_reminder, id);
     }

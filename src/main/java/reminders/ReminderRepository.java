@@ -1,5 +1,6 @@
 package reminders;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import org.slf4j.Logger;
@@ -31,7 +32,18 @@ public class ReminderRepository {
             .optional();
     }
 
-    void create(Reminder reminder) {
+    // Gets the reminders which have a remind_date before the current date-time
+    // that are yet to be sent
+    List<Reminder> get_reminders_to_send(int id) {
+        return jdbcClient
+            .sql("SELECT * FROM reminders WHERE is_sent = FALSE AND "
+                 + "remind_date <= :current_timestamp")
+            .param("current_timestamp", LocalDateTime.now().toString())
+            .query(Reminder.class)
+            .list();
+    }
+
+    void create(ReminderRequest reminder) {
         int updated = jdbcClient
                           .sql("INSERT INTO reminders (remind_date, message, "
                                + "email) VALUES(?, ?, ?)")
@@ -41,7 +53,7 @@ public class ReminderRepository {
         Assert.state(updated == 1, "Failed to create reminder");
     }
 
-    void update(Reminder updated_reminder, int id) {
+    void update(ReminderRequest updated_reminder, int id) {
         int updated = jdbcClient
                           .sql("UPDATE reminders SET remind_date = ?, "
                                + "message = ?, email = ? WHERE id = ?")
