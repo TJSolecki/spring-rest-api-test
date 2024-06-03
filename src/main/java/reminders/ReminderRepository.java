@@ -1,5 +1,6 @@
 package reminders;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -34,11 +35,11 @@ public class ReminderRepository {
 
     // Gets the reminders which have a remind_date before the current date-time
     // that are yet to be sent
-    List<Reminder> get_reminders_to_send(int id) {
+    List<Reminder> get_reminders_to_send() {
         return jdbcClient
-            .sql("SELECT * FROM reminders WHERE is_sent = FALSE AND "
-                 + "remind_date <= :current_timestamp")
-            .param("current_timestamp", LocalDateTime.now().toString())
+            .sql("SELECT * FROM reminders WHERE remind_date <= "
+                 + ":current_timestamp")
+            .param("current_timestamp", Timestamp.valueOf(LocalDateTime.now()))
             .query(Reminder.class)
             .list();
     }

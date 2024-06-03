@@ -1,6 +1,6 @@
 services:
     postgres:
-        image: "postgres:latest"
+        image: "postgres:alpine3.20"
         environment:
             - "POSTGRES_DB=reminder"
             - "POSTGRES_PASSWORD=password"
