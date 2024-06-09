@@ -23,34 +23,50 @@ if (submit_button) {
         })
             .then((resp) => {
                 if (resp.status === 201) {
+                    blur_background.classList.remove("hidden");
                     success_popup.classList.remove("hidden");
+                    setTimeout(() => {
+                        blur_background.classList.add("full-opacity");
+                        success_popup.classList.add("full-opacity");
+                    }, 10);
                 } else {
+                    blur_background.classList.remove("hidden");
                     error_popup.classList.remove("hidden");
+                    setTimeout(() => {
+                        blur_background.classList.add("full-opacity");
+                        error_popup.classList.add("full-opacity");
+                    }, 10);
                 }
             })
             .catch(() => {
-                error_popup.classList.remove("hidden");
-            })
-            .finally(() => {
                 blur_background.classList.remove("hidden");
+                error_popup.classList.remove("hidden");
+                setTimeout(() => {
+                    blur_background.classList.add("full-opacity");
+                    error_popup.classList.add("full-opacity");
+                }, 100);
             });
     });
 }
 
 if (success_close_popup_button) {
     success_close_popup_button.addEventListener("click", () => {
-        blur_background.classList.add("hidden");
-        success_popup.classList.add("hidden");
+        blur_background.classList.remove("full-opacity");
+        success_popup.classList.remove("full-opacity");
+        setTimeout(() => {
+            blur_background.classList.add("hidden");
+            success_popup.classList.add("hidden");
+        }, 300);
     });
-} else {
-    alert("Not here");
 }
 
 if (error_close_popup_button) {
     error_close_popup_button.addEventListener("click", () => {
-        blur_background.classList.add("hidden");
-        error_popup.classList.add("hidden");
+        blur_background.classList.remove("full-opacity");
+        error_popup.classList.remove("full-opacity");
+        setTimeout(() => {
+            blur_background.classList.add("hidden");
+            error_popup.classList.add("hidden");
+        }, 300);
     });
-} else {
-    alert("Not here");
 }
