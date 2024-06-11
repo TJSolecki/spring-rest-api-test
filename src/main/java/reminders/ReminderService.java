@@ -38,7 +38,6 @@ public class ReminderService {
 
     public void sendEmail(String to, String text) {
         SimpleMailMessage message = new SimpleMailMessage();
-        log.info(sender);
         message.setFrom(sender);
         message.setTo(to);
         message.setSubject(text);
