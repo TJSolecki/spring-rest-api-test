@@ -3,14 +3,13 @@
     export let type: "button" | "submit" | "reset" | null | undefined;
 </script>
 
-<button {type}>{label}</button>
+<button on:click {type}>{label}</button>
 
 <style>
     button {
         background-color: black;
         color: white;
-        width: 10em;
-        padding: 0.7em 0;
+        padding: 0.7em;
         outline: none;
         border: none;
         border-radius: 0.6em;
