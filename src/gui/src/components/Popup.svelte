@@ -1,12 +1,14 @@
 <script lang="ts">
     import Button from "./Button.svelte";
+    export let message: string;
+    export let description: string;
 </script>
 
 <dialog>
     <slot name="icon" />
     <div>
-        <h2>Success</h2>
-        <p>Reminder successfully created</p>
+        <h2>{message}</h2>
+        <p>{description}</p>
     </div>
     <Button on:click label="Close" type="button" />
 </dialog>
@@ -36,8 +38,9 @@
         flex-direction: column;
         align-items: flex-end;
         gap: 1em;
+        max-width: 300px;
         width: 80%;
-        max-width: 350px;
+        text-align: center;
         background: white;
         box-shadow: rgba(99, 99, 99, 0.3) 0px 2px 8px 0px;
         border-radius: 1em;

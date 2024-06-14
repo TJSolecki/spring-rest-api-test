@@ -14,6 +14,7 @@
 
 <style>
     svg {
+        align-self: center;
         width: 3em;
         color: darkred;
     }

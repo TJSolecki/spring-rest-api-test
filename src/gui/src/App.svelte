@@ -1,15 +1,34 @@
 <script lang="ts">
     import Button from "./components/Button.svelte";
     import CheckmarkIcon from "./components/CheckmarkIcon.svelte";
+    import ExclamationIcon from "./components/ExclamationIcon.svelte";
     import FormInput from "./components/FormInput.svelte";
     import Popup from "./components/Popup.svelte";
     let email = "";
     let message = "";
     let remind_date = "";
-    let isHidden = false;
+    let successPopupIsHidden = true;
+    let errorPopupIsHidden = true;
 
     function handle_submit() {
-        alert(JSON.stringify({ email, message, remind_date }));
+        const form_data = new FormData();
+        form_data.append("email", email);
+        form_data.append("message", message);
+        form_data.append("remind_date", remind_date);
+        fetch("/reminders/", {
+            body: form_data,
+            method: "post",
+        })
+            .then((resp) => {
+                if (resp.status === 201) {
+                    successPopupIsHidden = false;
+                } else {
+                    errorPopupIsHidden = false;
+                }
+            })
+            .catch(() => {
+                errorPopupIsHidden = false;
+            });
     }
 </script>
 
@@ -31,9 +50,28 @@
         />
         <Button label="Create Reminder" type="submit" />
     </form>
-    <div class="blur-background" hidden={isHidden}>
-        <Popup><CheckmarkIcon slot="icon" /></Popup>
-    </div>
+    {#if !successPopupIsHidden}
+        <div class="blur-background">
+            <Popup
+                message="Success"
+                description="Reminder successfully created"
+                on:click={() => {
+                    successPopupIsHidden = true;
+                }}><CheckmarkIcon slot="icon" /></Popup
+            >
+        </div>
+    {/if}
+    {#if !errorPopupIsHidden}
+        <div class="blur-background">
+            <Popup
+                message="Error"
+                description="There was an issue creating your reminder. Please try again."
+                on:click={() => {
+                    errorPopupIsHidden = true;
+                }}><ExclamationIcon slot="icon" /></Popup
+            >
+        </div>
+    {/if}
 </main>
 
 <style>
