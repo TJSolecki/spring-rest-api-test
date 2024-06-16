@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { fade } from "svelte/transition";
     import Button from "./components/Button.svelte";
     import CheckmarkIcon from "./components/CheckmarkIcon.svelte";
     import ExclamationIcon from "./components/ExclamationIcon.svelte";
@@ -51,7 +52,7 @@
         <Button label="Create Reminder" type="submit" />
     </form>
     {#if !successPopupIsHidden}
-        <div class="blur-background">
+        <div transition:fade={{ duration: 100 }} class="blur-background">
             <Popup
                 message="Success"
                 description="Reminder successfully created"
@@ -62,7 +63,7 @@
         </div>
     {/if}
     {#if !errorPopupIsHidden}
-        <div class="blur-background">
+        <div transition:fade={{ duration: 100 }} class="blur-background">
             <Popup
                 message="Error"
                 description="There was an issue creating your reminder. Please try again."
