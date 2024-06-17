@@ -81,8 +81,9 @@
         inset: 0;
         z-index: 1;
         backdrop-filter: blur(0.2rem);
+        width: 100%;
         display: grid;
-        place-items: center;
+        place-items: center center;
     }
     h1 {
         font-weight: 600;

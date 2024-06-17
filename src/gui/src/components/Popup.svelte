@@ -34,6 +34,7 @@
         margin: 0;
     }
     dialog {
+        margin: auto;
         display: flex;
         flex-direction: column;
         align-items: flex-end;
