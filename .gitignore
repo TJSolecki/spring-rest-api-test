@@ -6,6 +6,10 @@ build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
+### Build static files ###
+src/main/resources/static/**
+src/main/resources/static/*
+
 ### STS ###
 .apt_generated
 .classpath
