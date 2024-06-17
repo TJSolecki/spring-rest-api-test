@@ -26,7 +26,7 @@ public class ReminderService {
 
     @Value("${spring.mail.username}") private String sender;
 
-    @Scheduled(fixedRate = 5 * 60000) // CRON job that runs every 5 minutes
+    @Scheduled(fixedRate = 60000) // CRON job that runs every 5 minutes
     @Async
     public void sendReminders() {
         List<Reminder> reminders = reminderRepository.get_reminders_to_send();
