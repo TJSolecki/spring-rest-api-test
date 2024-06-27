@@ -18,42 +18,41 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/reminders")
 public class ReminderController {
 
-    private final ReminderRepository reminder_repository;
+  private final ReminderRepository reminder_repository;
 
-    public ReminderController(ReminderRepository reminder_repository) {
-        this.reminder_repository = reminder_repository;
-    }
+  public ReminderController(ReminderRepository reminder_repository) {
+    this.reminder_repository = reminder_repository;
+  }
 
-    @GetMapping("/")
-    List<Reminder> get_reminders() {
-        return reminder_repository.find_all();
-    }
+  @GetMapping("/")
+  List<Reminder> get_reminders() {
+    return reminder_repository.find_all();
+  }
 
-    @GetMapping("/{id}")
-    Reminder get_reminder_by_id(@PathVariable int id) {
-        Optional<Reminder> reminder = reminder_repository.find_by_id(id);
-        if (reminder.isEmpty()) {
-            throw new ReminderNotFoundException(id);
-        }
-        return reminder.get();
+  @GetMapping("/{id}")
+  Reminder get_reminder_by_id(@PathVariable int id) {
+    Optional<Reminder> reminder = reminder_repository.find_by_id(id);
+    if (reminder.isEmpty()) {
+      throw new ReminderNotFoundException(id);
     }
+    return reminder.get();
+  }
 
-    @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("/")
-    void create(@Valid @ModelAttribute ReminderRequest reminder) {
-        reminder_repository.create(reminder);
-    }
+  @ResponseStatus(HttpStatus.CREATED)
+  @PostMapping("/")
+  void create(@Valid @ModelAttribute ReminderRequest reminder) {
+    reminder_repository.create(reminder);
+  }
 
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PutMapping("/{id}")
-    void update(@Valid @ModelAttribute ReminderRequest updated_reminder,
-                @PathVariable int id) {
-        reminder_repository.update(updated_reminder, id);
-    }
+  @ResponseStatus(HttpStatus.NO_CONTENT)
+  @PutMapping("/{id}")
+  void update(@Valid @ModelAttribute ReminderRequest updated_reminder, @PathVariable int id) {
+    reminder_repository.update(updated_reminder, id);
+  }
 
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    @DeleteMapping("/{id}")
-    void delete(@PathVariable int id) {
-        reminder_repository.delete(id);
-    }
+  @ResponseStatus(HttpStatus.NO_CONTENT)
+  @DeleteMapping("/{id}")
+  void delete(@PathVariable int id) {
+    reminder_repository.delete(id);
+  }
 }
